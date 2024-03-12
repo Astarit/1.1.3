@@ -2,10 +2,6 @@ package jm.task.core.jdbc.dao;
 
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
-import net.bytebuddy.implementation.Implementation;
-
-import javax.swing.*;
-import java.awt.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,8 +55,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
             System.out.println("Пользователь с именем " + name + " добавлен в базу");
         } catch (SQLException e) {
-            e.printStackTrace(); // Обработка исключений
-            System.out.println("Ошибка при добавлении пользователя");
+            throw new RuntimeException("Не удалось создать пользователя");
         }
     }
 
@@ -71,8 +66,7 @@ public class UserDaoJDBCImpl implements UserDao {
             preparedStatement.executeUpdate();
             System.out.println("Пользователь с id = " + id + " успешно удален из таблицы");
         } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Не удалось удалить пользователя с id = " + id);
+            throw new RuntimeException("Не удалось удалить пользователя с id = " + id);
         }
     }
 
@@ -91,8 +85,7 @@ public class UserDaoJDBCImpl implements UserDao {
             }
             System.out.println("\n Список пользователей успешно получен \n");
         } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Не удалось получить список пользователей");
+            throw new RuntimeException("Не удалось получить список пользователей");
         }
         return userList;
     }
@@ -108,8 +101,7 @@ public class UserDaoJDBCImpl implements UserDao {
             statement.executeUpdate(sql);
             System.out.println("\nТаблица успешно очищена\n");
         } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Не удалось очистить таблицу");
+            throw new RuntimeException("Не удалось очистить таблицу");
         }
     }
 }
